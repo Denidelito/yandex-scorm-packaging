@@ -256,7 +256,7 @@ function addResourcesToManifest(manifestObj) {
                     identifier: 'r1',
                     type: 'webcontent',
                     'adlcp:scormType': 'sco',
-                    href: 'course/index.html'
+                    href: 'index.html'
                 },
                 file: [],
             },
@@ -265,7 +265,7 @@ function addResourcesToManifest(manifestObj) {
                     identifier: 'r1',
                     type: 'webcontent',
                     'adlcp:scormtype': 'sco',
-                    href: 'course/index.html'
+                    href: 'index.html'
                 },
                 file: [],
             },
