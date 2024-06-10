@@ -1,9 +1,42 @@
-<script setup>
+<script>
+import { defineComponent, computed } from 'vue'
+
+export default defineComponent({
+  name: 'SvgIcon',
+  props: {
+    prefix: {
+      type: String,
+      default: 'icon',
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    color: {
+      type: String,
+      default: '#333',
+    },
+    width: {
+      type: Number,
+      default: 24
+    },
+    height: {
+      type: Number,
+      default: 24
+    }
+  },
+  setup(props) {
+    const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+    return { symbolId }
+  },
+})
 
 </script>
 
 <template>
-  $END$
+  <svg aria-hidden="true" :width="`${width}px`" :height="`${height}px`">
+    <use :href="symbolId" />
+  </svg>
 </template>
 
 <style scoped>
