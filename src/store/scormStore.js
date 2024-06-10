@@ -7,7 +7,7 @@ export const useScormStore = defineStore('scormStore', () => {
     const isInitialized = ref(false)
     const studentName = ref('')
     const lessonStatus = ref('')
-    const lessonLocation = ref('')
+    const lessonLocation = ref('/')
 
     const route = useRoute()
 
@@ -17,7 +17,7 @@ export const useScormStore = defineStore('scormStore', () => {
             isInitialized.value = true
             studentName.value = pipwerks.SCORM.get('cmi.learner_name') || ''
             lessonStatus.value = pipwerks.SCORM.get('cmi.completion_status') || ''
-            lessonLocation.value = pipwerks.SCORM.get('cmi.location') || ''
+            lessonLocation.value = pipwerks.SCORM.get('cmi.location') || '/'
 
             if (lessonStatus.value === "not attempted" || lessonStatus.value === "unknown") {
                 pipwerks.SCORM.set('cmi.completion_status', 'incomplete')
@@ -60,6 +60,7 @@ export const useScormStore = defineStore('scormStore', () => {
     }
 
     watch(route, (newRoute, oldRoute) => {
+        console.log(newRoute.fullPath)
         setLessonLocation(newRoute.fullPath);
     })
 

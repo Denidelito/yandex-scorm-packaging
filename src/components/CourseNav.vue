@@ -1,4 +1,5 @@
 <script setup>
+import { computed, onBeforeMount, ref } from "vue";
 import SvgIcon from "./SvgIcon.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useScormStore } from "../store/scormStore.js";
@@ -7,27 +8,41 @@ const scormStore = useScormStore();
 const route = useRoute();
 const router = useRouter();
 const routes = router.options.routes;
-const currentIndexRoute = routes.findIndex(item => item.path === route.fullPath);
+
+const currentIndexRoute = computed(() => {
+  return routes.findIndex(item => item.path === route.fullPath);
+});
+
+const toRouteNext = computed(() => {
+  return routes[currentIndexRoute.value + 1]?.path || routes[currentIndexRoute.value].path;
+});
+
+const toRoutePrev = computed(() => {
+  return currentIndexRoute.value === 0 ? routes[0].path : routes[currentIndexRoute.value - 1].path;
+});
+
 const routeNext = function () {
-  return routes[currentIndexRoute + 1].path;
+  if (currentIndexRoute.value < routes.length - 1) {
+    currentIndexRoute.value++;
+    scormStore.setLessonLocation(routes[currentIndexRoute.value].path);
+  }
 }
 
 const routerPrev = function () {
-  if (currentIndexRoute === 0) {
-    return routes[currentIndexRoute].path
+  if (currentIndexRoute.value > 0) {
+    currentIndexRoute.value--;
+    scormStore.setLessonLocation(routes[currentIndexRoute.value].path);
   }
-
-  return routes[currentIndexRoute - 1].path;
 }
 </script>
 
 <template>
   <div class="yEda-player__nav">
-    <router-link class="yEda-player__btn-prev" :to="routerPrev()">
+    <router-link class="yEda-player__btn-prev" :to="toRoutePrev" @click="routerPrev">
       <svg-icon name="arrow"/>
     </router-link>
     <slot></slot>
-    <router-link class="yEda-player__btn-nex" :to="routeNext()">
+    <router-link class="yEda-player__btn-nex" :to="toRouteNext" @click="routeNext">
       Продолжить
       <svg-icon name="arrow"/>
     </router-link>

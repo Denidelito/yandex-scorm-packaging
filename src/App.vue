@@ -10,6 +10,7 @@ const router = useRouter()
 
 onMounted(() => {
   scormStore.initializeScorm()
+  router.push(scormStore.lessonLocation)
 })
 </script>
 
@@ -22,10 +23,10 @@ onMounted(() => {
             appear
             mode="out-in"
             appear-active-class="animate__animated animate__fadeIn"
-            enter-active-class="animate__animated animate__faster animate__fadeInLeft"
+            enter-active-class="animate__animated animate__faster animate__fadeIn"
             leave-active-class="animate__animated animate__faster animate__fadeOut"
         >
-          <component :is="Component" :key="scormStore.lessonLocation"></component>
+          <component :is="Component"></component>
         </transition>
       </router-view>
     </section>

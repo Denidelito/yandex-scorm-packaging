@@ -4,11 +4,16 @@ const routes = [
     {
         path: '/',
         name: 'home',
+        component: () => import('../views/splash.vue')
+    },
+    {
+        path: '/slide-1',
+        name: 'slide-1',
         component: () => import('../views/page-1.vue')
     },
     {
-        path: '/page-2',
-        name: 'page-2',
+        path: '/slide-2',
+        name: 'slide-2',
         component: () => import('../views/page-2.vue')
     }
 ]
