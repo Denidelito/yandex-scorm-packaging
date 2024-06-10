@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <h1>page 2</h1>
+  <h1>Slide 2</h1>
 </template>
 
 <style scoped>

@@ -48,18 +48,29 @@ const routerPrev = function () {
       background-color: var(--btn-color-bg);
       border-radius: 16px;
       padding: 10px 24px;
+      transition: .3s;
 
       svg {
         margin-left: 12px;
+      }
+
+      &:hover {
+        background-color: var(--btn-color-bg-hover);
+        color: var(--btn-color-hover);
       }
     }
     &__btn-prev {
       display: flex;
       color: var(--btn-color);
       padding: 10px 16px;
+      transition: .3s;
 
       svg {
         transform: rotate(180deg);
+      }
+
+      &:hover {
+        color: var(--link-hover-primary);
       }
     }
   }

@@ -10,15 +10,24 @@ const router = useRouter()
 
 onMounted(() => {
   scormStore.initializeScorm()
-  router.push(scormStore.lessonLocation)
 })
 </script>
 
 <template>
   <div class="yEda-player">
-    <course-header/>
+    <course-header title="Управление группой"/>
     <section class="yEda-player__container">
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <transition
+            appear
+            mode="out-in"
+            appear-active-class="animate__animated animate__fadeIn"
+            enter-active-class="animate__animated animate__faster animate__fadeInLeft"
+            leave-active-class="animate__animated animate__faster animate__fadeOut"
+        >
+          <component :is="Component" :key="scormStore.lessonLocation"></component>
+        </transition>
+      </router-view>
     </section>
     <course-footer/>
   </div>
@@ -28,6 +37,7 @@ onMounted(() => {
   .yEda-player {
     width: 1200px;
     height: 700px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

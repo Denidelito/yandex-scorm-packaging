@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import '../style/fonts.css'
 import '../style/style.css'
-import animate from 'animate'
+import 'animate.css';
 import App from '../App.vue'
 import  router  from  '../router'
 import { createPinia } from 'pinia'
