@@ -51,8 +51,10 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 64px;
   line-height: 1.1;
+  font-weight: normal;
+  margin: 0;
 }
 
 button {

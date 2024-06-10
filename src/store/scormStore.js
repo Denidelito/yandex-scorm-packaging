@@ -60,7 +60,6 @@ export const useScormStore = defineStore('scormStore', () => {
     }
 
     watch(route, (newRoute, oldRoute) => {
-        console.log(newRoute.fullPath)
         setLessonLocation(newRoute.fullPath);
     })
 
