@@ -17,5 +17,8 @@ export default defineConfig({
         }),
         vue()
     ],
+    server: {
+        historyApiFallback: true,
+    },
 });
 

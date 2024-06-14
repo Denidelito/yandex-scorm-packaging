@@ -23,6 +23,7 @@
 
 body {
   font-size: 18px;
+  color: var(--color-text);
 }
 
 p {

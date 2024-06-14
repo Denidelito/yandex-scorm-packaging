@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onBeforeMount, ref } from "vue";
-import SvgIcon from "./SvgIcon.vue";
+import SvgIcon from "../SvgIcon.vue";
 import { useRouter, useRoute } from "vue-router";
-import { useScormStore } from "../store/scormStore.js";
+import { useScormStore } from "../../store/scormStore.js";
 
 const scormStore = useScormStore();
 const route = useRoute();

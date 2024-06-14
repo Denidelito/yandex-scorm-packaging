@@ -1,6 +1,6 @@
 export default {
   "standard": "SCORM2004",
-  "name": "Тестовый курс",
-  "id": "test-course-pakeges",
+  "name": "Яндекс.Еда 'Управление группой'",
+  "id": "yeda-course",
   "patch": "dist"
 }

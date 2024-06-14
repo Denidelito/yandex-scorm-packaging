@@ -13,6 +13,7 @@ export const useScormStore = defineStore('scormStore', () => {
 
     const initializeScorm = () => {
         const initialized = pipwerks.SCORM.init()
+
         if (initialized) {
             isInitialized.value = true
             studentName.value = pipwerks.SCORM.get('cmi.learner_name') || ''

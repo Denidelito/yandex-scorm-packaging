@@ -1,11 +1,19 @@
 <script setup>
+import Speech from "../components/Speech.vue";
 
+const dataSpeech = [
+    'Это экран навигации. Тут ты можешь ознакомиться с элементами управления курса.'
+]
 </script>
 
 <template>
-  <h1>Slide 1</h1>
+  <div>
+    <speech class="mt-60" :speech-data="dataSpeech"/>
+  </div>
 </template>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .mt-60 {
+    margin-top: 60px;
+  }
 </style>

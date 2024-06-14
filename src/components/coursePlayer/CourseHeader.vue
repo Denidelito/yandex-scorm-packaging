@@ -1,6 +1,7 @@
 <script setup>
-import svgIcon from "./SvgIcon.vue";
+import svgIcon from "../SvgIcon.vue";
 import { defineProps } from 'vue';
+import CourseProgress from "./CourseProgress.vue";
 
 const props = defineProps({
   title: {
@@ -14,14 +15,17 @@ const props = defineProps({
 <template>
 <header class="yEda-player__header">
   <div class="yEda-player__header-info">
-    <img width="113" height="20" src="../assets/logo.svg" alt="Логотип Яндекс Еды">
+    <img width="113" height="20" src="../../assets/logo.svg" alt="Логотип Яндекс Еды">
     <p class="yEda-player__header-title">{{ title }}</p>
   </div>
-  <nav class="yEda-player__header-nav">
-    <button><svg-icon name="download"/></button>
-    <button><svg-icon name="glossary"/></button>
-    <button><svg-icon name="nav"/></button>
-  </nav>
+  <div class="yEda-player__header-status">
+    <course-progress/>
+    <nav class="yEda-player__header-nav">
+      <button><svg-icon name="download"/></button>
+      <button><svg-icon name="glossary"/></button>
+      <button><svg-icon name="nav"/></button>
+    </nav>
+  </div>
 </header>
 </template>
 
@@ -63,6 +67,9 @@ const props = defineProps({
           outline: none;
         }
       }
+    }
+    &-status {
+      display: flex;
     }
   }
 </style>

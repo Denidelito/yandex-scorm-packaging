@@ -1,6 +1,6 @@
 <script setup>
-import CourseHeader from "./components/CourseHeader.vue";
-import CourseFooter from "./components/CourseFooter.vue";
+import CourseHeader from "./components/coursePlayer/CourseHeader.vue";
+import CourseFooter from "./components/coursePlayer/CourseFooter.vue";
 import { useScormStore } from './store/scormStore.js'
 import { onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
@@ -10,7 +10,7 @@ const router = useRouter();
 const route = useRoute();
 
 onMounted(() => {
-  scormStore.initializeScorm()
+  // scormStore.initializeScorm()
   router.push(scormStore.lessonLocation)
 })
 </script>
@@ -36,6 +36,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
   .yEda-player {
+    position: relative;
     width: 1200px;
     height: 700px;
     overflow: hidden;

@@ -1,6 +1,7 @@
 <script setup>
 
 import SvgIcon from "../components/SvgIcon.vue";
+import Modal from "../components/Modal.vue";
 </script>
 
 <template>
@@ -8,10 +9,18 @@ import SvgIcon from "../components/SvgIcon.vue";
   <div class="splash__container">
     <img width="249" height="44" src="../assets/logo-big.svg" alt="Логотип Яндекс Еды">
     <h1>Управление группой</h1>
-    <router-link class="splash__btn" to="/slide-1">
-      Начать
-      <svg-icon name="arrow"/>
-    </router-link>
+    <div class="splash__nav">
+      <router-link class="splash__btn" to="/slide-1">
+        Начать
+        <svg-icon name="arrow"/>
+      </router-link>
+      <modal btn-text="О курсе" btn-type="link">
+        <p>Среднее время прохождения — 60 - 90 мин.</p>
+        <p>Между модулями рекомендуем отдыхать, чтобы лучше усвоить информацию.</p>
+        <p>Надеемся, что наш курс будет полезен для тебя.</p>
+        <p>Удачи!</p>
+      </modal>
+    </div>
   </div>
 </div>
 </template>
@@ -39,6 +48,10 @@ import SvgIcon from "../components/SvgIcon.vue";
     }
   }
 
+  &__nav {
+    display: flex;
+  }
+
   &__btn {
     display: flex;
     width: fit-content;
@@ -49,6 +62,7 @@ import SvgIcon from "../components/SvgIcon.vue";
     background-color: var(--btn-color-bg);
     color: var(--btn-color);
     transition: .3s;
+    margin-right: 45px;
 
     &:hover {
       background-color: var(--btn-color-bg-hover);
