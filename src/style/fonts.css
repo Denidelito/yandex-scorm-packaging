@@ -1,12 +1,22 @@
 @font-face {
     font-family: 'YS-Text';
     src: url('../assets/fonts/YS-Text-Light.eot');
-    src: local('../assets/fonts/Montserrat Light'), local('Montserrat-Light'),
+    src: local('../assets/fonts/YS-Text Light'), local('YS-Text-Light'),
     url('../assets/fonts/YS-Text-Light.eot?#iefix') format('embedded-opentype'),
     url('../assets/fonts/YS-Text-Light.woff2') format('woff2'),
     url('../assets/fonts/YS-Text-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
+}
+@font-face {
+    font-family: 'YS-Text';
+    src: url('../assets/fonts/YS-Text-Regular-Italic.eot');
+    src: local('../assets/fonts/YS-Text Regular Italic'), local('YS-Text-Regular-Italic'),
+    url('../assets/fonts/YS-Text-Regular-Italic.eot?#iefix') format('embedded-opentype'),
+    url('../assets/fonts/YS-Text-Regular-Italic.woff2') format('woff2'),
+    url('../assets/fonts/YS-Text-Regular-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
 }
 
 @font-face {
@@ -23,7 +33,7 @@
 @font-face {
     font-family: 'YS-Text';
     src: url('../assets/fonts/YS-Text-Regular.eot');
-    src: local('YS-Text Regular'), local('Montserrat-Regular'),
+    src: local('YS-Text Regular'), local('YS-Text-Regular'),
     url('../assets/fonts/YS-Text-Regular.eot?#iefix') format('embedded-opentype'),
     url('../assets/fonts/YS-Text-Regular.woff2') format('woff2'),
     url('../assets/fonts/YS-Text-Regular.ttf') format('truetype');
@@ -34,7 +44,7 @@
 @font-face {
     font-family: 'Montserrat';
     src: url('../assets/fonts/YS-Text-Medium.eot');
-    src: local('YS-Text Medium'), local('Montserrat-Medium'),
+    src: local('YS-Text Medium'), local('YS-Text-Medium'),
     url('../assets/fonts/YS-Text-Medium.eot?#iefix') format('embedded-opentype'),
     url('../assets/fonts/YS-Text-Medium.woff2') format('woff2'),
     url('../assets/fonts/YS-Text-Medium.ttf') format('truetype');

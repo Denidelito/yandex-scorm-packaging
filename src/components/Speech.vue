@@ -25,6 +25,8 @@ const props = defineProps({
 <style scoped lang="scss">
 .speech {
   display: flex;
+  align-items: flex-start;
+
   &__character {
     line-height: 0;
     border-radius: 50%;
@@ -33,12 +35,18 @@ const props = defineProps({
   }
   &__dialog-modal {
     width: 100%;
-    max-width: 612px;
+    max-width: 500px;
     margin-left: 20px;
     border-radius: 0 32px 32px 24px;
     padding: 20px 20px 20px 40px;
     background-color: #D5D9DB;
     color: #2F414C;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 </style>
