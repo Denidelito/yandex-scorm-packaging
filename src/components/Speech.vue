@@ -1,10 +1,23 @@
 <script setup>
-import { defineProps } from 'vue';
+import { ref, defineProps, onMounted } from 'vue';
 
 const props = defineProps({
   speechData: {
     type: Array,
     default: ['Введите текст']
+  }
+})
+
+const visibleDialogs = ref([])
+
+onMounted(() => {
+  let delay = 0;
+
+  for (let speech of props.speechData) {
+    setTimeout(() => {
+      visibleDialogs.value.push(speech)
+    }, delay);
+    delay += 1000;
   }
 })
 </script>
@@ -15,9 +28,14 @@ const props = defineProps({
        <img width="137" height="137" src="../assets/images/character/character-ivan-speech.png" alt="Эллюстрация персонажа по имени Иван">
      </div>
      <div class="speech__content">
-        <div class="speech__dialog-modal" v-for="speech in props.speechData">
-          {{ speech }}
-        </div>
+        <transition
+            appear
+            mode="out-in"
+            appear-active-class="animate__animated animate__fadeInUp" v-for="speech in visibleDialogs">
+          <div class="speech__dialog-modal" >
+            {{ speech }}
+          </div>
+        </transition>
      </div>
    </div>
 </template>
