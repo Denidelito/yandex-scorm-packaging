@@ -10,7 +10,7 @@ const router = useRouter();
 const route = useRoute();
 
 onMounted(() => {
-  // scormStore.initializeScorm()
+  scormStore.initializeScorm()
   router.push(scormStore.lessonLocation)
 })
 </script>

@@ -58,6 +58,12 @@ h1 {
   font-weight: normal;
   margin: 0;
 }
+h2 {
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: normal;
+  margin: 0;
+}
 
 button {
   border-radius: 8px;
