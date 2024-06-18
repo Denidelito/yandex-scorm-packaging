@@ -11,6 +11,7 @@
   "types": "module",
   "dependencies": {
     "animate.css": "^4.1.1",
+    "custom-vue-scrollbar": "^0.0.8",
     "gsap": "^3.12.5",
     "pinia": "^2.1.7",
     "pipwerks-scorm-api-wrapper": "^0.1.2",

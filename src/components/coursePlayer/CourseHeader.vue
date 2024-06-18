@@ -25,7 +25,39 @@ const glossaryWords = [
   {
     word: 'Определение',
     description: 'Описание опрведеления'
-  }
+  },
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  },
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  },
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  },
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  },
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  },
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  },
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  },
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  },
 ]
 const toggleSection = (section) => {
   visibleSection.value = visibleSection.value === section ? '' : section;
