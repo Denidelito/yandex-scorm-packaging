@@ -23,13 +23,16 @@ const props = defineProps({
       leave-active-class="animate__animated animate__slideOutUp">
     <div v-if="show" class="yEda-player__glossary">
       <p class="yEda-player__glossary__title">Глоссарий</p>
-
+      <div v-for="wordInfo in words" class="yEda-player__glossary__word">
+        <h3>{{ wordInfo.word }}</h3>
+        <p>{{ wordInfo.description }}</p>
+      </div>
     </div>
   </transition>
 </template>
 
 <style scoped lang="scss">
-.yEda-player__menu {
+.yEda-player__glossary{
   height: calc(100% - 52px);
   width: 100%;
   position: absolute;

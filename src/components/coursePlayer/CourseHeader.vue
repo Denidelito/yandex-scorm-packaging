@@ -1,5 +1,5 @@
 <script setup>
-import svgIcon from "../SvgIcon.vue";
+import SvgIcon from "../SvgIcon.vue";
 import { ref, defineProps } from 'vue';
 import CourseProgress from "./CourseProgress.vue";
 import CoureseMenu from "./CoureseMenu.vue";
@@ -12,32 +12,23 @@ const props = defineProps({
   },
 })
 
-const menu = ref({
-  show: false,
-  links: [
-    {
-      title: 'Управление группой',
-      url: '/'
-    },
-    {
-      title: 'Групповая динамика',
-      url: '/'
-    },
-    {
-      title: 'Роли тренера',
-      url: '/'
-    },
-    {
-      title: 'Роли участников',
-      url: '/'
-    },
-  ]
-})
-const glossary = ref({
-  show: false,
-})
-const showMenu = () => {
-  return menu.value.show = !menu.value.show
+const visibleSection = ref(''); // '' (none), 'menu', 'glossary'
+
+const menuLinks = [
+  { title: 'Управление группой', url: '/' },
+  { title: 'Групповая динамика', url: '/' },
+  { title: 'Роли тренера', url: '/' },
+  { title: 'Роли участников', url: '/' },
+];
+
+const glossaryWords = [
+  {
+    word: 'Определение',
+    description: 'Описание опрведеления'
+  }
+]
+const toggleSection = (section) => {
+  visibleSection.value = visibleSection.value === section ? '' : section;
 }
 
 </script>
@@ -52,13 +43,13 @@ const showMenu = () => {
       <course-progress/>
       <nav class="yEda-player__header-nav">
         <button><svg-icon name="download"/></button>
-        <button><svg-icon name="glossary"/></button>
-        <button @click="showMenu"><svg-icon name="nav"/></button>
+        <button @click="toggleSection('glossary')"><svg-icon name="glossary"/></button>
+        <button @click="toggleSection('menu')"><svg-icon name="nav"/></button>
       </nav>
     </div>
   </header>
-  <course-glossary :show="glossary.show"/>
-  <courese-menu :show="menu.show" :links="menu.links"/>
+  <course-glossary :show="visibleSection === 'glossary'" :words="glossaryWords"/>
+  <courese-menu :show="visibleSection === 'menu'" :links="menuLinks"/>
 </template>
 
 <style lang="scss" scoped>
