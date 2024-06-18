@@ -3,6 +3,7 @@ import svgIcon from "../SvgIcon.vue";
 import { ref, defineProps } from 'vue';
 import CourseProgress from "./CourseProgress.vue";
 import CoureseMenu from "./CoureseMenu.vue";
+import CourseGlossary from "./CourseGlossary.vue";
 
 const props = defineProps({
   title: {
@@ -32,7 +33,9 @@ const menu = ref({
     },
   ]
 })
-
+const glossary = ref({
+  show: false,
+})
 const showMenu = () => {
   return menu.value.show = !menu.value.show
 }
@@ -54,6 +57,7 @@ const showMenu = () => {
       </nav>
     </div>
   </header>
+  <course-glossary :show="glossary.show"/>
   <courese-menu :show="menu.show" :links="menu.links"/>
 </template>
 
