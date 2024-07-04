@@ -3,6 +3,7 @@
   line-height: 1.5;
   font-weight: normal;
   background-color: #242424;
+  color: #2F414C;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -83,7 +84,9 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
+ol {
+  margin: 0;
+}
 .card {
   padding: 2em;
 }
@@ -108,4 +111,9 @@ button:focus-visible {
 
 .mt-60 {
   margin-top: 60px;
+}
+
+.text-info {
+  font-size: 16px;
+  font-style: italic;
 }

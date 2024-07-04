@@ -6,6 +6,7 @@ import App from '../App.vue'
 import  router  from  '../router'
 import { createPinia } from 'pinia'
 
+
 // Register SVG icons
 import 'virtual:svg-icons-register'
 
@@ -17,5 +18,7 @@ const  pinia  =  createPinia();
 
 const app = createApp(App);
 app.use(router).use(pinia)
-app.component('CustomScrollbar', CustomScrollbar)
+app.component('CustomScrollbar',
+    CustomScrollbar,
+)
 app.mount('#app');

@@ -20,6 +20,11 @@ const routes = [
         path: '/slide-3',
         name: 'slide-3',
         component: () => import('../views/page-3.vue')
+    },
+    {
+        path: '/slide-4',
+        name: 'slide-4',
+        component: () => import('../views/page-4.vue')
     }
 ]
 
