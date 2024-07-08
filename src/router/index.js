@@ -12,6 +12,11 @@ const routes = [
         component: () => import('../views/page-1.vue')
     },
     {
+        path: '/slide-5',
+        name: 'slide-5',
+        component: () => import('../views/page-5.vue')
+    },
+    {
         path: '/slide-2',
         name: 'slide-2',
         component: () => import('../views/page-2.vue')
