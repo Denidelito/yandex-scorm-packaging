@@ -12,9 +12,9 @@ const routes = [
         component: () => import('../views/page-1.vue')
     },
     {
-        path: '/slide-5',
-        name: 'slide-5',
-        component: () => import('../views/page-5.vue')
+        path: '/slide-6',
+        name: 'slide-6',
+        component: () => import('../views/page-6.vue')
     },
     {
         path: '/slide-2',
@@ -30,7 +30,12 @@ const routes = [
         path: '/slide-4',
         name: 'slide-4',
         component: () => import('../views/page-4.vue')
-    }
+    },
+    {
+        path: '/slide-5',
+        name: 'slide-5',
+        component: () => import('../views/page-5.vue')
+    },
 ]
 
 const router  =  createRouter({

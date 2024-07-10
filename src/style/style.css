@@ -19,6 +19,9 @@
   --btn-color: #222222;
   --btn-color-hover: #F6F5F3;
 
+  --tabs-button-bg: #2F414C;
+  --tabs-button-bg-hover: #FFC433;
+
   --link-hover-primary: #F4CA3A;
   --link-text-primary: #222222;
 }
@@ -111,6 +114,12 @@ ol {
 
 .mt-60 {
   margin-top: 60px;
+}
+.mt-35 {
+  margin-top: 35px;
+}
+.mt-25 {
+  margin-top: 25px;
 }
 
 .text-info {

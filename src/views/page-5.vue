@@ -14,8 +14,8 @@ const answer = {
 
 <template>
   <div>
-    <h2>Принцип 1</h2>
-    <p class="mt-60 text-info">Нажимай на стрелки, чтобы перейти к следующему или предыдущему совету.</p>
+    <h2 class="mt-35">Принцип 1</h2>
+    <p class="mt-25 text-info">Нажимай на стрелки, чтобы перейти к следующему или предыдущему совету.</p>
     <pick-one :question="question" :button="button" :answer="answer"  />
   </div>
 </template>
