@@ -1,25 +1,45 @@
-<script setup>
-import PickOne from "../components/PickOne.vue";
-
-const question = 'Ты планируете обучающее мероприятие для вашей команды. Как вы будете подходить к планированию: включите самих участников в процесс, ориентируясь на их мнение о том, что им необходимо изучить для работы, или примете решение самостоятельно?';
-const button = {
-      correct: 'Включить самих участников',
-      incorrect: 'Принять решение самостоятельно'
-    };
-const answer = {
-      correct: 'Сообщить ученикам, что их мнение будет учтено. Благодаря этому, вовлеченность учеников в обучение будет выше, т.к. они поймут, что это обучение принесет им новые знания в той области, что им необходима.',
-      incorrect: 'Может возникнуть риск недостаточного учета конкретных потребностей и интересов отдельных сотрудников, что может снизить эффективность обучения и уровень их вовлеченности и мотивации.'
-    };
-</script>
-
 <template>
   <div>
-    <h2 class="mt-35">Принцип 1</h2>
-    <p class="mt-25 text-info">Нажимай на стрелки, чтобы перейти к следующему или предыдущему совету.</p>
-    <pick-one :question="question" :button="button" :answer="answer"  />
+    <h2 class="mt-35">Тренинг</h2>
+    <quze
+        :questions="quizQuestions"
+        :resultMessage="resultMessage"
+    />
   </div>
 </template>
 
-<style scoped lang="scss">
+<script setup>
+import { ref, computed } from 'vue';
+import Quze from "../components/quze/Quze.vue";
 
-</style>
+const quizQuestions = [
+  {
+    question: 'Что такое арбуз?',
+    Answer: [
+      { text: 'Фрукт', parameter: 'understanding', correct: false },
+      { text: 'Ягода', parameter: 'interest', correct: true },
+      { text: 'Овощ', parameter: 'engagement', correct: false }
+    ],
+  },
+  {
+    question: 'Какие из следующих фруктов являются цитрусовыми?',
+    Answer: [
+      { text: 'Апельсин',parameter: 'engagement', correct: true },
+      { text: 'Яблоко', parameter: 'interest', correct: false },
+      { text: 'Лимон', parameter: 'interest', correct: true },
+      { text: 'Банан', parameter: 'understanding', correct: false }
+    ],
+  }
+];
+
+const parameters = ref({
+  engagement: 0,
+  interest: 0,
+  understanding: 0
+});
+
+const resultMessage = computed(() => {
+  const totalScore = parameters.value.engagement + parameters.value.interest + parameters.value.understanding;
+  return totalScore >= 2 ? ['Ты не плохо справился! Но Таня и Маша сидели  в телефонах и постоянно отвлекались.', 'Не переживай, такое может случаться в начале профессионального пути тренера. Чтобы лучше понять, почему это происходит, давай разберёмся с понятием групповой динамики и рассмотрим этапы формирования группы.'] : ['Ты не плохо справился! Но Таня и Маша сидели  в телефонах и постоянно отвлекались.', 'Не переживай, такое может случаться в начале профессионального пути тренера. Чтобы лучше понять, почему это происходит, давай разберёмся с понятием групповой динамики и рассмотрим этапы формирования группы.'];
+});
+</script>

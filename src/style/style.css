@@ -16,8 +16,10 @@
 
   --btn-color-bg: #F4CA3A;
   --btn-color-bg-hover: #2F414C;
+  --btn-color-bg-disable: #D5D9DB;
   --btn-color: #222222;
   --btn-color-hover: #F6F5F3;
+  --btn-color-disable: #808080;
 
   --tabs-button-bg: #2F414C;
   --tabs-button-bg-hover: #FFC433;

@@ -44,6 +44,8 @@ onMounted(() => {
 .speech {
   display: flex;
   align-items: flex-start;
+  position: relative;
+  z-index: 2;
 
   &__character {
     line-height: 0;
