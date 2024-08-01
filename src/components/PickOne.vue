@@ -117,6 +117,8 @@ const buttonClass = (value) => {
     }
     &__buttons {
       display: flex;
+      justify-content: center;
+      align-items: center;
       gap: 30px;
       padding: 25px 0;
       position: relative;

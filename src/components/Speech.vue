@@ -5,6 +5,10 @@ const props = defineProps({
   speechData: {
     type: Array,
     default: ['Введите текст']
+  },
+  size: {
+    type: String,
+    default: 'small'
   }
 })
 
@@ -32,8 +36,7 @@ onMounted(() => {
             appear
             mode="out-in"
             appear-active-class="animate__animated animate__fadeInUp" v-for="speech in visibleDialogs">
-          <div class="speech__dialog-modal" >
-            {{ speech }}
+          <div :class="['speech__dialog-modal', size]" v-html="speech">
           </div>
         </transition>
      </div>
@@ -63,6 +66,10 @@ onMounted(() => {
     color: #2F414C;
     margin-bottom: 20px;
     font-size: 1.2rem;
+
+    &.large {
+      max-width: 650px;
+    }
 
     &:last-child {
       margin-bottom: 0;

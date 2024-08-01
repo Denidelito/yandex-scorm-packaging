@@ -1,6 +1,12 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 import SvgIcon from "../SvgIcon.vue";
+
+const emit = defineEmits(['update-show'])
+
+const hideNav = () => {
+  emit('update-show', '')
+}
 
 const props = defineProps({
   show: {
@@ -12,6 +18,7 @@ const props = defineProps({
     default: []
   }
 })
+
 </script>
 
 <template>
@@ -26,7 +33,7 @@ const props = defineProps({
       <ul class="yEda-player__menu__links">
         <li v-for="link in links" class="yEda-player__menu__link">
           <svg-icon name="arrow"/>
-          <router-link :to="link.url">{{link.title}}</router-link>
+          <router-link :to="link.url" @click="hideNav()">{{link.title}}</router-link>
         </li>
       </ul>
     </div>
@@ -38,7 +45,7 @@ const props = defineProps({
     height: calc(100% - 52px);
     width: 100%;
     position: absolute;
-    z-index: 2;
+    z-index: 10;
     left: 0;
     right: 0;
     top: 52px;

@@ -7,7 +7,7 @@ export default defineConfig({
     root: resolve(__dirname, 'src'),
     base:  './',
     build: {
-        outDir: '../dist'
+        outDir: '../docs'
     },
     publicDir: 'public',
     plugins: [

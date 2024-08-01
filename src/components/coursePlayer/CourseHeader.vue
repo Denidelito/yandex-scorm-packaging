@@ -15,10 +15,14 @@ const props = defineProps({
 const visibleSection = ref(''); // '' (none), 'menu', 'glossary'
 
 const menuLinks = [
-  { title: 'Управление группой', url: '/' },
-  { title: 'Групповая динамика', url: '/' },
-  { title: 'Роли тренера', url: '/' },
-  { title: 'Роли участников', url: '/' },
+  { title: 'Этапы формирования группы', url: '/splash-1' },
+  { title: 'Формирующая стадия', url: '/splash-2' },
+  { title: 'Конфликтная стадия', url: '/splash-3' },
+  { title: 'Стадия нормализации', url: '/splash-4' },
+  { title: 'Стадия функционирования', url: '/splash-5' },
+  { title: 'Стадия расставания', url: '/splash-6' },
+  { title: 'Андрагогика', url: '/splash-7' },
+  { title: 'Роли тренера', url: '/splash-8' },
 ];
 
 const glossaryWords = [
@@ -63,6 +67,9 @@ const toggleSection = (section) => {
   visibleSection.value = visibleSection.value === section ? '' : section;
 }
 
+const handleShowUpdate = (newStatus) => {
+  toggleSection(newStatus)
+}
 </script>
 
 <template>
@@ -81,13 +88,13 @@ const toggleSection = (section) => {
     </div>
   </header>
   <course-glossary :show="visibleSection === 'glossary'" :words="glossaryWords"/>
-  <courese-menu :show="visibleSection === 'menu'" :links="menuLinks"/>
+  <courese-menu @update-show="handleShowUpdate" :show="visibleSection === 'menu'" :links="menuLinks"/>
 </template>
 
 <style lang="scss" scoped>
   .yEda-player__header {
     display: flex;
-    z-index: 10;
+    z-index: 11;
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;

@@ -114,6 +114,10 @@ ol {
   }
 }
 
+.row {
+  display: flex;
+}
+
 .mt-60 {
   margin-top: 60px;
 }

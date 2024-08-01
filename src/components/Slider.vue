@@ -32,9 +32,12 @@ const settings = {
 <template>
   <carousel v-bind="settings" >
     <slide v-for="(slide, index) in slidesData" :key="index">
+      <div class="carousel__index">
+        {{index + 1}}
+      </div>
       <div class="carousel__item">
         <div class="carousel__icon-container">
-          <img width="80" height="80" :src="'/assets/images/icon/icon-1.png'" alt="icon">
+          <img width="80" height="80" :src="`/assets/images/icon/${slide.img}.png`" alt="icon">
         </div>
         <div class="carousel__content">
           <h4>{{ slide.title }}</h4>
@@ -63,8 +66,21 @@ const settings = {
 
   .carousel {
     border-radius: 24px;
+    overflow: hidden;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.15);
     background-color: white;
+
+    &__index {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 79px;
+      font-size: 32px;
+      font-weight: bold;
+      background-color: #2F414C;
+      color: white;
+      height: 100%;
+    }
 
     &__icon-container {
       width: 200px;
@@ -75,7 +91,7 @@ const settings = {
 
     &__item {
       min-height: 200px;
-      padding: 25px 40px 0 40px;
+      padding: 25px 40px 90px 40px;
       width: 100%;
       display: flex;
       align-items: flex-start;
@@ -84,12 +100,16 @@ const settings = {
     &__content {
       text-align: left;
       padding-left: 25px;
+
+      & > P {
+        font-size: 16px;
+      }
     }
 
     &__prev,
     &__next {
       box-sizing: content-box;
-      border: 5px solid white;
+      border: 5px solid transparent;
       top: auto;
       bottom: 10px;
       transform: none;
@@ -113,18 +133,21 @@ const settings = {
       }
     }
 
-
     &__prev {
+      left: 122px;
       &:after {
         transform: rotate(180deg);
       }
+    }
+    &__next {
+      right: 122px;
     }
 
     &__pagination {
       display: flex;
       align-items: center;
       height: 40px;
-      margin: 10px 0 10px;
+      margin: -50px 0 0;
 
       &-button {
         &:focus {

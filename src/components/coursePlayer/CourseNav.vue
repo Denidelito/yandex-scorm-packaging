@@ -53,7 +53,7 @@ const routerPrev = function () {
   .yEda-player {
     &__nav {
       display: flex;
-      z-index: 2;
+      z-index: 10;
       align-items: center;
       border-radius: 16px;
       box-shadow: 0 5px 4px 0 rgba(#000, 20%);

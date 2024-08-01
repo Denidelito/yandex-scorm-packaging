@@ -13,12 +13,12 @@ import 'virtual:svg-icons-register'
 // Custom scrollbar
 import CustomScrollbar from 'custom-vue-scrollbar';
 import 'custom-vue-scrollbar/dist/style.css';
-
+ 
 const  pinia  =  createPinia();
 
 const app = createApp(App);
 app.use(router).use(pinia)
 app.component('CustomScrollbar',
-    CustomScrollbar,
+    CustomScrollbar
 )
 app.mount('#app');
