@@ -49,7 +49,7 @@ const btnClass = (index) => {
     <div class="tabs__content">
       <div v-for="(itemTabs, index) in contents[indexCurrentTab]">
         <h4>{{itemTabs.title}}</h4>
-        <p>{{itemTabs.text}}</p>
+        <div v-html="itemTabs.text"></div>
       </div>
     </div>
   </div>
@@ -61,16 +61,17 @@ const btnClass = (index) => {
     align-items: center;
 
     &__list {
-      min-width: 300px;
+      min-width: 150px;
       list-style: none;
       padding: 0;
+      margin: 0;
     }
 
     &__button {
       position: relative;
       z-index: 2;
       text-align: center;
-      width: 110%;
+      width: 210%;
       background-color: var(--tabs-button-bg);
       color: white;
       transition: .3s;
@@ -80,12 +81,12 @@ const btnClass = (index) => {
       cursor: pointer;
 
       &:hover {
-        width: 120%;
+        width: 220%;
         background-color: var(--tabs-button-bg-hover);
         color: #222222;
       }
       &_active {
-        width: 120%;
+        width: 220%;
         background-color: var(--tabs-button-bg-hover);
         color: #222222;
       }
@@ -93,10 +94,19 @@ const btnClass = (index) => {
 
     &__content {
       width: 100%;
-      padding: 20px 20px 20px 70px;
+      min-height: 400px;
+      padding: 20px 20px 20px 200px;
       border-radius: 30px;
       background-color: white;
       box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 0.25);
+      font-size: 14px;
+
+      & > p {
+        margin-bottom: .8rem;
+      }
+      & > ol {
+        padding: 0 0 0 12px;
+      }
     }
   }
 </style>

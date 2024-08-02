@@ -23,6 +23,8 @@ const menuLinks = [
   { title: 'Стадия расставания', url: '/splash-6' },
   { title: 'Андрагогика', url: '/splash-7' },
   { title: 'Роли тренера', url: '/splash-8' },
+  { title: 'Роли участников', url: '/splash-9' },
+  { title: 'Структура группы', url: '/splash-10' },
 ];
 
 const glossaryWords = [

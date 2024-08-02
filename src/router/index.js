@@ -227,6 +227,59 @@ const routes = [
         name: 'slide-33',
         component: () => import('../views/page-33.vue')
     },
+    {
+        path: '/slide-35',
+        name: 'slide-35',
+        component: () => import('../views/page-35.vue')
+    },
+    // Роли тренера
+    {
+        path: '/splash-9',
+        name: 'splash-9',
+        component: () => import('../views/splash-9.vue')
+    },
+    {
+        path: '/slide-36',
+        name: 'slide-36',
+        component: () => import('../views/page-36.vue')
+    },
+    {
+        path: '/slide-37',
+        name: 'slide-37',
+        component: () => import('../views/page-37.vue')
+    },
+    {
+        path: '/slide-38',
+        name: 'slide-38',
+        component: () => import('../views/page-38.vue')
+    },
+    {
+        path: '/slide-39',
+        name: 'slide-39',
+        component: () => import('../views/page-39.vue')
+    },
+    // Практика перетаскивание
+    {
+        path: '/slide-40',
+        name: 'slide-40',
+        component: () => import('../views/page-40.vue')
+    },
+    {
+        path: '/slide-41',
+        name: 'slide-41',
+        component: () => import('../views/page-41.vue')
+    },
+    // Роли тренера
+    {
+        path: '/splash-10',
+        name: 'splash-10',
+        component: () => import('../views/splash-10.vue')
+    },
+    {
+        path: '/slide-42',
+        name: 'slide-42',
+        component: () => import('../views/page-42.vue')
+    },
 ]
 
 const router  =  createRouter({

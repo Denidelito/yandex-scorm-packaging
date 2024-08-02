@@ -132,3 +132,17 @@ ol {
   font-size: 16px;
   font-style: italic;
 }
+
+.slide__bg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  line-height: 0;
+}
+.slide__player {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  line-height: 0;
+}

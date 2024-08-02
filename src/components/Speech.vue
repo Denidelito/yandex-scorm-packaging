@@ -50,6 +50,7 @@ onMounted(() => {
   position: relative;
   z-index: 2;
 
+
   &__character {
     line-height: 0;
     border-radius: 50%;
