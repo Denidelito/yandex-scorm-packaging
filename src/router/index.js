@@ -327,6 +327,32 @@ const routes = [
         name: 'slide-50',
         component: () => import('../views/page-50.vue')
     },
+    {
+        path: '/slide-51',
+        name: 'slide-51',
+        component: () => import('../views/page-51.vue')
+    },
+    // Практическое задание
+    {
+        path: '/slide-52',
+        name: 'slide-52',
+        component: () => import('../views/page-52.vue')
+    },
+    {
+        path: '/slide-53',
+        name: 'slide-53',
+        component: () => import('../views/page-53.vue')
+    },
+    {
+        path: '/splash-12',
+        name: 'splash-12',
+        component: () => import('../views/splash-12.vue')
+    },
+    {
+        path: '/slide-54',
+        name: 'slide-54',
+        component: () => import('../views/page-54.vue')
+    },
 ]
 
 const router  =  createRouter({

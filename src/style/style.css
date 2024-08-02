@@ -91,6 +91,14 @@ button:focus-visible {
 }
 ol {
   margin: 0;
+  padding: 0 0 0 18px;
+}
+
+ol > li {
+  margin-bottom: 5px;
+}
+ol > li:last-child {
+  margin-bottom: 0;
 }
 .card {
   padding: 2em;
@@ -126,6 +134,9 @@ ol {
 }
 .mt-25 {
   margin-top: 25px;
+}
+.mt-10 {
+  margin-top: 10px;
 }
 
 .text-info {

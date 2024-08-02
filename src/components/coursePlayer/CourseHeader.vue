@@ -26,6 +26,7 @@ const menuLinks = [
   { title: 'Роли участников', url: '/splash-9' },
   { title: 'Структура группы', url: '/splash-10' },
   { title: 'Факторы сплочённости', url: '/splash-11' },
+  { title: 'Факторы напряжённости', url: '/splash-12' },
 ];
 
 const glossaryWords = [

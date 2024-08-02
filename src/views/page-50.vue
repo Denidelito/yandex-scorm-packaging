@@ -10,7 +10,7 @@ const dataSpeech = ref([
 
 const scormStore = useScormStore();
 const selectedCharacter = ref('girl');
-const dataCards = [
+const dataCards = ref([
   {
     icon: 'icon-17',
     title: 'Групповые проекты',
@@ -29,7 +29,7 @@ const dataCards = [
     text: 'Совместное генерирование идей для решения определенных проблем или задач.',
     visible: false
   },
-];
+]);
 
 onMounted(() => {
   const savedCharacter = scormStore.getCustomData('selectedCharacter');
@@ -38,9 +38,14 @@ onMounted(() => {
   }
 
   let timeOut = 1000;
-  setTimeout(() => {
 
-  }, timeOut)
+  for (let card of dataCards.value) {
+    setTimeout(() => {
+      card.visible = true;
+    }, timeOut);
+
+    timeOut += 500;
+  }
 });
 </script>
 
@@ -48,13 +53,15 @@ onMounted(() => {
   <div>
     <h2 class="mt-35">Совместная деятельность</h2>
     <card
+        animate-class="animate__fadeInRight"
         class="mt-25"
         icon-position="left"
         text="Участники выполняют задания, требующие коллективных усилий, например, разработка презентации или решение бизнес-кейса."
     />
     <div class="row mt-25">
-      <div v-for="(card, index) in dataCards" :key="index">
+      <div style="width: 33%" v-for="(card, index) in dataCards" :key="index">
         <card
+            v-if="card.visible"
             :icon="card.icon"
             :title="card.title"
             :text="card.text"
