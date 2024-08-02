@@ -280,6 +280,53 @@ const routes = [
         name: 'slide-42',
         component: () => import('../views/page-42.vue')
     },
+    {
+        path: '/slide-43',
+        name: 'slide-43',
+        component: () => import('../views/page-43.vue')
+    },
+    {
+        path: '/slide-44',
+        name: 'slide-44',
+        component: () => import('../views/page-44.vue')
+    },
+    {
+        path: '/slide-45',
+        name: 'slide-45',
+        component: () => import('../views/page-45.vue')
+    },
+    {
+        path: '/slide-46',
+        name: 'slide-46',
+        component: () => import('../views/page-46.vue')
+    },
+    {
+        path: '/slide-47',
+        name: 'slide-47',
+        component: () => import('../views/page-47.vue')
+    },
+    // Практическое задание
+    {
+        path: '/slide-48',
+        name: 'slide-48',
+        component: () => import('../views/page-48.vue')
+    },
+    // Роли тренера
+    {
+        path: '/splash-11',
+        name: 'splash-11',
+        component: () => import('../views/splash-11.vue')
+    },
+    {
+        path: '/slide-49',
+        name: 'slide-49',
+        component: () => import('../views/page-49.vue')
+    },
+    {
+        path: '/slide-50',
+        name: 'slide-50',
+        component: () => import('../views/page-50.vue')
+    },
 ]
 
 const router  =  createRouter({

@@ -25,6 +25,7 @@ const menuLinks = [
   { title: 'Роли тренера', url: '/splash-8' },
   { title: 'Роли участников', url: '/splash-9' },
   { title: 'Структура группы', url: '/splash-10' },
+  { title: 'Факторы сплочённости', url: '/splash-11' },
 ];
 
 const glossaryWords = [

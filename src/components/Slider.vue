@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'Vue';
+import { defineProps } from  'vue';
 import { Carousel, Navigation, Slide, Pagination } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 

@@ -1,7 +1,7 @@
 <script setup>
+import {ref} from "vue";
 import Slider from "../components/Slider.vue";
 import Speech from "../components/Speech.vue";
-import {ref} from "vue";
 
 const dataSpeech = [
   'Мы формируем доверие и открытость участников. Без этого – ученик может занять саботирующую позицию и это затруднит последующие этапы работы.',

@@ -44,6 +44,8 @@ onMounted(() => {
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--bg-player);
+    background-image: url("./assets/images/background/speech.png");
+    background-position: bottom;
     padding: 0 40px;
 
     &__container {
