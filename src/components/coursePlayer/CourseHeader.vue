@@ -27,6 +27,8 @@ const menuLinks = [
   { title: 'Структура группы', url: '/splash-10' },
   { title: 'Факторы сплочённости', url: '/splash-11' },
   { title: 'Факторы напряжённости', url: '/splash-12' },
+  { title: 'Инструменты', url: '/splash-13' },
+  { title: 'Тайминг', url: '/splash-14' },
 ];
 
 const glossaryWords = [

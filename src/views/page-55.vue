@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useScormStore } from "../store/scormStore.js";
+import {ref, onMounted} from "vue";
+import {useScormStore} from "../store/scormStore.js";
 import Speech from "../components/Speech.vue";
 import Card from "../components/Card.vue";
 
@@ -10,18 +10,18 @@ const selectedCharacter = ref('girl');
 const infoVisible = ref(false);
 const dataCards = ref([
   {
-    icon: 'icon-29',
-    title: 'Неудобные стулья и условия площадки',
-    visible: false
-  },
-  {
-    icon: 'icon-30',
-    title: 'Неудобные  обучающие материалы',
-    visible: false
-  },
-  {
     icon: 'icon-31',
-    title: 'Организация обучения',
+    title: 'Непонимание тренера',
+    visible: false
+  },
+  {
+    icon: 'icon-32',
+    title: 'Раздражение от поведения участников',
+    visible: false
+  },
+  {
+    icon: 'icon-33',
+    title: 'Неудовлетворение запроса участников',
     visible: false
   },
 ]);
@@ -41,19 +41,17 @@ onMounted(() => {
 
     timeOut += 500;
   }
-
-  setTimeout(() => infoVisible.value = true, timeOut)
 });
 </script>
 
 <template>
   <div>
-    <h2 class="mt-35">Внешние факторы</h2>
+    <h2 class="mt-35">Внутренние факторы</h2>
     <card
         animate-class="animate__fadeInRight"
         class="mt-25"
         icon-position="left"
-        text="Внешние факторы —  это внешние условия и обстоятельства, которые могут оказывать отрицательное влияние на взаимоотношения, коммуникацию и общий комфорт участников. "
+        text="Внутренние факторы — это личные характеристики, мотивации и эмоциональные состояния участников, которые оказывают влияние на их взаимодействие, обучение и восприятие информации в рамках тренинга."
     />
     <div class="row mt-10">
       <div style="width: 33%" v-for="(card, index) in dataCards" :key="index">
@@ -65,19 +63,11 @@ onMounted(() => {
         />
       </div>
     </div>
-    <card v-if="infoVisible"
-        animate-class="animate__fadeInLeft"
-        class="mt-10"
-        icon-position="left"
-        icon-info="true"
-        title="Совет"
-        text="Важно поддерживать открытые отношения с участниками группы, чтобы предотвратить конфликты и недопонимания, связанные с внешними факторами напряженности. Регулярно проверяйте уровень понимания материала и комфорт участников для оперативной реакции на проблемы."
-    />
   </div>
 </template>
 
 <style scoped lang="scss">
-  .row {
-    gap: 37px;
-  }
+.row {
+  gap: 37px;
+}
 </style>

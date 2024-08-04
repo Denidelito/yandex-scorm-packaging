@@ -91,6 +91,64 @@ const classCard = computed(() => {
 </template>
 
 <style scoped lang="scss">
+  .card {
+    position: relative;
+    z-index: 10;
+    background-color: #FFFFFF;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    border-radius: 16px;
+    font-size: 16px;
+    overflow: hidden;
+    text-align: center;
+    height: 100%;
+    box-sizing: border-box;
+
+    &_row {
+      display: flex;
+      align-items: center;
+      text-align: left;
+
+      & .card__icon {
+        margin-bottom: 0;
+        margin-right: 15px;
+      }
+    }
+
+    &__title {
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+
+    &__text {
+      margin-bottom: 0;
+      margin-top: 10px;
+    }
+    &__icon {
+      margin-bottom: 20px;
+      line-height: 0;
+
+      &-info {
+        background-color: #FFC433;
+        font-size: 56px;
+        font-weight: bold;
+        color: white;
+        padding: 0 24px 0 0;
+        margin-right: 20px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          width: 90px;
+          top: -24px;
+          bottom: -24px;
+          left: -24px;
+          z-index: -1;
+          background-color: #FFC433;
+        }
+      }
+    }
+  }
   .modal {
     display: flex;
     align-items: center;
@@ -150,64 +208,6 @@ const classCard = computed(() => {
 
         &:focus {
           outline: none;
-        }
-      }
-    }
-  }
-  .card {
-    position: relative;
-    z-index: 10;
-    background-color: #FFFFFF;
-    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
-    padding: 24px;
-    border-radius: 16px;
-    font-size: 16px;
-    overflow: hidden;
-    text-align: center;
-    height: 100%;
-    box-sizing: border-box;
-
-    &_row {
-      display: flex;
-      align-items: center;
-      text-align: left;
-
-      & .card__icon {
-        margin-bottom: 0;
-        margin-right: 15px;
-      }
-    }
-
-    &__title {
-      font-weight: bold;
-      margin-bottom: 0;
-    }
-
-    &__text {
-      margin-bottom: 0;
-      margin-top: 10px;
-    }
-    &__icon {
-      margin-bottom: 20px;
-      line-height: 0;
-
-      &-info {
-        background-color: #FFC433;
-        font-size: 56px;
-        font-weight: bold;
-        color: white;
-        padding: 0 24px 0 0;
-        margin-right: 20px;
-
-        &:after {
-          content: '';
-          position: absolute;
-          width: 90px;
-          top: -24px;
-          bottom: -24px;
-          left: -24px;
-          z-index: -1;
-          background-color: #FFC433;
         }
       }
     }

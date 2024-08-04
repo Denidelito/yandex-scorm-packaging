@@ -26,11 +26,12 @@ const routes = [
         name: 'slide-4',
         component: () => import('../views/page-4.vue')
     },
+    /*
     {
-        path: '/slide-5',
-        name: 'slide-5',
-        component: () => import('../views/page-5.vue')
-    },
+        path: '/slide-67',
+        name: 'slide-67',
+        component: () => import('../views/page-67.vue')
+    },*/
     // Этапы формирования группы
     {
         path: '/splash-1',
@@ -63,6 +64,12 @@ const routes = [
         name: 'slide-9',
         component: () => import('../views/page-9.vue')
     },
+    // Практическое задание со шкалами
+    {
+        path: '/trening-1',
+        name: 'trening-1',
+        component: () => import('../views/trening-1.vue')
+    },
     // Конфликтная стадия
     {
         path: '/splash-3',
@@ -78,6 +85,12 @@ const routes = [
         path: '/slide-11',
         name: 'slide-11',
         component: () => import('../views/page-11.vue')
+    },
+    // Практическое задание со шкалами
+    {
+        path: '/trening-2',
+        name: 'trening-2',
+        component: () => import('../views/trening-2.vue')
     },
     // Стадия нормализации
     {
@@ -134,9 +147,9 @@ const routes = [
     },
     // Практика на перетаскивание
     {
-        path: '/slide-34',
-        name: 'slide-34',
-        component: () => import('../views/page-34.vue')
+        path: '/slide-33',
+        name: 'slide-33',
+        component: () => import('../views/page-33.vue')
     },
     {
         path: '/slide-19',
@@ -223,9 +236,9 @@ const routes = [
     },
     // Практика перетаскивание
     {
-        path: '/slide-33',
-        name: 'slide-33',
-        component: () => import('../views/page-33.vue')
+        path: '/slide-34',
+        name: 'slide-34',
+        component: () => import('../views/page-34.vue')
     },
     {
         path: '/slide-35',
@@ -265,11 +278,16 @@ const routes = [
         component: () => import('../views/page-40.vue')
     },
     {
+        path: '/slide-66',
+        name: 'slide-66',
+        component: () => import('../views/page-66.vue')
+    },
+    {
         path: '/slide-41',
         name: 'slide-41',
         component: () => import('../views/page-41.vue')
     },
-    // Роли тренера
+    // Роли тренера на перетаскивание
     {
         path: '/splash-10',
         name: 'splash-10',
@@ -305,13 +323,13 @@ const routes = [
         name: 'slide-47',
         component: () => import('../views/page-47.vue')
     },
-    // Практическое задание
+    // Практическое задание на перетаскивание
     {
         path: '/slide-48',
         name: 'slide-48',
         component: () => import('../views/page-48.vue')
     },
-    // Роли тренера
+    // Факторы сплочённости
     {
         path: '/splash-11',
         name: 'splash-11',
@@ -332,7 +350,7 @@ const routes = [
         name: 'slide-51',
         component: () => import('../views/page-51.vue')
     },
-    // Практическое задание
+    // Практическое задание на перетаскивание
     {
         path: '/slide-52',
         name: 'slide-52',
@@ -352,6 +370,68 @@ const routes = [
         path: '/slide-54',
         name: 'slide-54',
         component: () => import('../views/page-54.vue')
+    },
+    {
+        path: '/slide-55',
+        name: 'slide-55',
+        component: () => import('../views/page-55.vue')
+    },
+    {
+        path: '/slide-57',
+        name: 'slide-57',
+        component: () => import('../views/page-57.vue')
+    },
+    // Инстументы
+    {
+        path: '/splash-13',
+        name: 'splash-13',
+        component: () => import('../views/splash-13.vue')
+    },
+    {
+        path: '/slide-58',
+        name: 'slide-58',
+        component: () => import('../views/page-58.vue')
+    },
+    {
+        path: '/slide-59',
+        name: 'slide-59',
+        component: () => import('../views/page-59.vue')
+    },
+    {
+        path: '/slide-60',
+        name: 'slide-60',
+        component: () => import('../views/page-60.vue')
+    },
+    {
+        path: '/slide-61',
+        name: 'slide-61',
+        component: () => import('../views/page-61.vue')
+    },
+    {
+        path: '/slide-62',
+        name: 'slide-62',
+        component: () => import('../views/page-62.vue')
+    },
+    // Тайминг
+    {
+        path: '/splash-14',
+        name: 'splash-14',
+        component: () => import('../views/splash-14.vue')
+    },
+    {
+        path: '/slide-65',
+        name: 'slide-65',
+        component: () => import('../views/page-65.vue')
+    },
+    {
+        path: '/slide-63',
+        name: 'slide-63',
+        component: () => import('../views/page-63.vue')
+    },
+    {
+        path: '/slide-64',
+        name: 'slide-64',
+        component: () => import('../views/page-64.vue')
     },
 ]
 

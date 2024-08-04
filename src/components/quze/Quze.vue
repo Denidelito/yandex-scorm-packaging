@@ -1,58 +1,177 @@
 <script setup>
-import { ref, computed } from 'vue';
-import Speech from "../Speech.vue";
+import { ref, computed, onMounted } from 'vue';
+import Speech from '../Speech.vue';
+import { useScormStore } from '../../store/scormStore.js';
+const scormStore = useScormStore();
 
+// Сохраненные Входные параметры
 const props = defineProps({
+  name: {
+    type: String,
+    required: true
+  },
   questions: {
     type: Array,
     required: true
   },
   resultMessage: {
     type: Array,
-    required: true
+    required: false
+  },
+  parameters: {
+    type: Object,
+    required: true,
+    default: () => ({
+      engagement: 0,
+      interest: 0,
+      understanding: 0
+    })
+  },
+  store: {
+    type: Object,
+    required: true,
+    default: () => ({
+      questionIndex: 0,
+      selectedAnswer: null,
+      feedbackVisible: false,
+      answers: []
+    })
   }
 });
 
-const currentQuestionIndex = ref(0);
-const selectedAnswer = ref(null);
-const parameters = ref({
-  engagement: 5,
-  interest: 5,
-  understanding: 5
+// Переменные
+let currentQuestionIndex = computed({
+  get: () => props.store.questionIndex,
+  set: (value) => {
+    props.store.questionIndex = value;
+  }
 });
+let selectedAnswer = computed({
+  get: () => props.store.selectedAnswer,
+  set: (value) => {
+    props.store.selectedAnswer = value;
+  }
+});
+let feedbackVisible = computed({
+  get: () => props.store.feedbackVisible,
+  set: (value) => {
+    props.store.feedbackVisible = value;
+  }
+});
+let answersSaved = computed({
+  get: () => props.store.answers,
+  set: (value) => {
+    props.store.answers = value;
+  }
+});
+let parameters = computed(() => props.parameters)
+
+// Вычисляемые свойства.
 
 const currentQuestion = computed(() => props.questions[currentQuestionIndex.value]);
 
+// Цвета шкал прогресса
 const switchColor = (param) => {
-  if (param >= 8) {
+  // console.log(24, 33, 35)
+
+  if (param >= 80) {
     return 'green';
-  } else if (param >= 5) {
+  } else if (param >= 50) {
     return 'yellow';
   } else {
     return 'red';
   }
 };
 
-const colorProgressInterest = computed(() => switchColor(parameters.value.interest));
-const colorProgressEngagement = computed(() => switchColor(parameters.value.engagement));
-const colorProgressUnderstanding = computed(() => switchColor(parameters.value.understanding));
+const colorProgressInterest = computed(() => {
+  return switchColor(parameters.value.interest / 24 * 100);
+});
+const colorProgressEngagement = computed(() => {
+  return switchColor(parameters.value.engagement / 33 * 100);
+});
+const colorProgressUnderstanding = computed(() => {
+  return switchColor(parameters.value.interest / 35 * 100);
+});
+let animateIncrementInterest = ref(false);
+let animateIncrementEngagement = ref(false);
+let animateIncrementUnderstanding = ref(false);
 
+// Обратная связь
+const feedback = computed(() => {
+  const selected = selectedAnswer.value;
+
+  return [...selected.feedback]
+});
+
+// Методы
 const acceptAnswer = () => {
   const selected = selectedAnswer.value;
-  if (selected.correct) {
-    parameters.value[selected.parameter] += 1;
-  } else {
-    parameters.value[selected.parameter] -= 1;
+
+  for (let param of selected.parameter) {
+    parameters.value[param] += 1;
+
+    if (param === 'engagement') {
+      animateIncrementEngagement.value = true;
+    }
+    if (param === 'interest') {
+      animateIncrementInterest.value = true;
+    }
+    if (param === 'understanding') {
+      animateIncrementUnderstanding.value = true;
+    }
+
   }
+
+  setTimeout(() => {
+    animateIncrementInterest.value = false;
+    animateIncrementEngagement.value = false;
+    animateIncrementUnderstanding.value = false;
+  }, 1500)
+
+  feedbackVisible.value = true;
+
+  answersSaved.value.push(selected);
+
+  scormStore.setCustomData('quzeParameters', parameters.value);
+  scormStore.setCustomData(props.name, {
+    questionIndex: currentQuestionIndex.value,
+    selectedAnswer: selectedAnswer.value,
+    feedbackVisible: feedbackVisible.value,
+    answers: answersSaved.value
+  });
+};
+const nextQuestion = () => {
   selectedAnswer.value = null;
+  feedbackVisible.value = false;
   currentQuestionIndex.value += 1;
 };
+const restartQuestion = () => {
+  for (let item of answersSaved.value) {
+    for (let param of item.parameter) {
+      parameters.value[param] -= 1;
+    }
+  }
+
+  selectedAnswer.value = null;
+  feedbackVisible.value = false;
+  currentQuestionIndex.value = 0;
+  answersSaved.value = [];
+
+  scormStore.setCustomData('quzeParameters', parameters.value);
+  scormStore.setCustomData(props.name, {
+    questionIndex: currentQuestionIndex.value,
+    selectedAnswer: selectedAnswer.value,
+    feedbackVisible: feedbackVisible.value,
+    answers: answersSaved.value
+  })
+}
 </script>
 
 <template>
   <div class="quze">
     <div class="quze__content-left">
-      <div v-if="currentQuestionIndex < questions.length">
+      <!--      Тестирование-->
+      <div v-if="!feedbackVisible">
         <div class="quze__question">
           <div class="quze__question__icon">
             ?
@@ -63,14 +182,14 @@ const acceptAnswer = () => {
           </div>
         </div>
         <div class="quze__answer-container">
-          <div class="quze__answer" v-for="(answer, index) in currentQuestion.Answer" :key="index">
+          <div class="quze__answer" v-for="(answer, index) in currentQuestion.Answer" :key="name+index">
             <input
                 type="radio"
-                :id="`answer-${index}`"
+                :id="`answer-${name+index}`"
                 :value="answer"
                 v-model="selectedAnswer"
             />
-            <label :for="`answer-${index}`">
+            <label :for="`answer-${name+index}`">
               {{ answer.text }}
             </label>
           </div>
@@ -82,10 +201,27 @@ const acceptAnswer = () => {
           Ответить
         </button>
       </div>
+
+      <!--      Обратная связь-->
       <div v-else>
-        <speech :speech-data="resultMessage"/>
+        <speech :speech-data="feedback"/>
+        <div class="quze__nav">
+          <button class="quze__btn"
+                  @click="nextQuestion"
+                  v-if="currentQuestionIndex + 1 !== questions.length"
+          >
+            Продолжить
+          </button>
+          <button class="quze__btn"
+                  @click="restartQuestion"
+                  v-if="currentQuestionIndex + 1 === questions.length"
+          >
+            Поменять ответы
+          </button>
+        </div>
       </div>
     </div>
+    <!--    Шкалы прогресса-->
     <div class="quze__content-right">
       <div class="quze__progress-title">
         Динамика группы
@@ -93,21 +229,41 @@ const acceptAnswer = () => {
       <div class="quze__progress-container">
         <div class="quze__progress-item">
           <div class="quze__progress">
-            <div :class="['quze__progress-line', colorProgressUnderstanding]" :style="{height: `${parameters.understanding / 10 * 100}%`}"></div>
+            <div :style="{bottom: `${parameters.interest / 24 * 100 + 10}px`}"
+                 :class="['numbers-container', animateIncrementInterest ? 'show' : 'hide']">
+              <span class="number">+ 1</span>
+              <span class="number">+ 1</span>
+              <span class="number">+ 1</span>
+            </div>
+            <div :class="['quze__progress-line', colorProgressInterest]"
+                 :style="{height: `${parameters.interest / 24 * 100}%`}"></div>
           </div>
-          <p>Понимание</p>
+          <p>Доверие</p>
         </div>
         <div class="quze__progress-item">
           <div class="quze__progress">
-            <div :class="['quze__progress-line', colorProgressInterest]" :style="{height: `${parameters.interest / 10 * 100}%`}"></div>
+            <div :style="{bottom: `${parameters.engagement / 33 * 100 + 10}px`}" :class="['numbers-container', animateIncrementEngagement ? 'show' : 'hide']">
+              <span class="number">+ 1</span>
+              <span class="number">+ 1</span>
+              <span class="number">+ 1</span>
+            </div>
+            <div :class="['quze__progress-line', colorProgressEngagement]"
+                :style="{height: `${parameters.engagement / 33 * 100}%`}"></div>
           </div>
           <p>Вовлеченность</p>
         </div>
         <div class="quze__progress-item">
           <div class="quze__progress">
-            <div :class="['quze__progress-line', colorProgressEngagement]" :style="{height: `${parameters.engagement / 10 * 100}%`}"></div>
+            <div :style="{bottom: `${parameters.understanding / 35 * 100 + 10}px`}"
+                :class="['numbers-container', animateIncrementUnderstanding ? 'show' : 'hide']">
+              <span class="number">+ 1</span>
+              <span class="number">+ 1</span>
+              <span class="number">+ 1</span>
+            </div>
+            <div :class="['quze__progress-line', colorProgressUnderstanding]"
+                 :style="{height: `${parameters.understanding / 35 * 100}%`}"></div>
           </div>
-          <p>Ярость</p>
+          <p>Эффективность</p>
         </div>
       </div>
     </div>
@@ -115,9 +271,72 @@ const acceptAnswer = () => {
 </template>
 
 <style lang="scss" scoped>
+.numbers-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: inline-block;
+  transition: .3s;
+
+  &.hide {
+    opacity: 0;
+  }
+
+  &.show {
+    opacity: 1;
+  }
+}
+
+.number {
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  animation: riseAndFade 2s ease-in-out infinite;
+
+  &:nth-child(1) {
+    animation-delay: 0s;
+  }
+  &:nth-child(2) {
+   animation-delay: 0.5s;
+ }
+  &:nth-child(3) {
+    animation-delay: 1s;
+  }
+  &:nth-child(4) {
+    animation-delay: 1.5s;
+  }
+}
+
+@keyframes riseAndFade {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-60px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+}
+
 .quze {
   padding-top: 28px;
   display: flex;
+
+  &__nav {
+    padding: 20px 0 0 160px;
+  }
 
   &__content {
     &-left {
@@ -133,6 +352,7 @@ const acceptAnswer = () => {
   }
 
   &__progress {
+    position: relative;
     display: flex;
     flex-direction: column-reverse;
     width: 55px;
@@ -169,7 +389,7 @@ const acceptAnswer = () => {
       &.yellow {
          background-color: #E9B226;
       }
-      &.rad {
+      &.red {
         background-color: #BD2B2B;
       }
       &.green {

@@ -30,12 +30,14 @@ const props = defineProps({
       leave-active-class="animate__animated animate__slideOutUp">
     <div v-if="show" class="yEda-player__menu">
       <p class="yEda-player__menu__title">Навигация по курсу</p>
-      <ul class="yEda-player__menu__links">
-        <li v-for="link in links" class="yEda-player__menu__link">
-          <svg-icon name="arrow"/>
-          <router-link :to="link.url" @click="hideNav()">{{link.title}}</router-link>
-        </li>
-      </ul>
+      <custom-scrollbar :style="{ width: '500px', height: '470px' }">
+        <ul class="yEda-player__menu__links">
+          <li v-for="link in links" class="yEda-player__menu__link">
+            <svg-icon name="arrow"/>
+            <router-link :to="link.url" @click="hideNav()">{{link.title}}</router-link>
+          </li>
+        </ul>
+      </custom-scrollbar>
     </div>
   </transition>
 </template>

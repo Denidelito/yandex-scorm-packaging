@@ -93,9 +93,16 @@ ol {
   margin: 0;
   padding: 0 0 0 18px;
 }
+ul {
+  margin: 0;
+  padding: 0 0 0 18px;
+}
 
-ol > li {
+ol > li, ul > li {
   margin-bottom: 5px;
+}
+ul > li:last-child {
+  margin-bottom: 0;
 }
 ol > li:last-child {
   margin-bottom: 0;
@@ -137,6 +144,9 @@ ol > li:last-child {
 }
 .mt-10 {
   margin-top: 10px;
+}
+.mb-10 {
+  margin-bottom: 10px;
 }
 
 .text-info {

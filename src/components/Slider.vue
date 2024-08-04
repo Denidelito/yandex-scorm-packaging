@@ -41,7 +41,7 @@ const settings = {
         </div>
         <div class="carousel__content">
           <h4>{{ slide.title }}</h4>
-          <p v-for="(text, index) in slide.content" :key="index">{{text}}</p>
+          <p v-for="(text, index) in slide.content" :key="index" v-html="text"></p>
         </div>
       </div>
     </slide>
@@ -87,6 +87,10 @@ const settings = {
       padding: 20px 60px;
       border-radius: 16px;
       background-color: #C1E6FF;
+    }
+
+    &__slide {
+      align-items: flex-start;
     }
 
     &__item {
@@ -149,6 +153,9 @@ const settings = {
       height: 40px;
       margin: -50px 0 0;
 
+      &-item {
+        margin-bottom: 0;
+      }
       &-button {
         &:focus {
           outline: none;

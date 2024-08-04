@@ -58,10 +58,9 @@ const btnClass = (index) => {
 <style scoped lang="scss">
   .tabs {
     display: flex;
-    align-items: center;
 
     &__list {
-      min-width: 150px;
+      min-width: 300px;
       list-style: none;
       padding: 0;
       margin: 0;
@@ -71,22 +70,26 @@ const btnClass = (index) => {
       position: relative;
       z-index: 2;
       text-align: center;
-      width: 210%;
+      width: 100%;
       background-color: var(--tabs-button-bg);
       color: white;
       transition: .3s;
       margin-bottom: 10px;
-      padding: 26px 0 32px;
+      padding: 26px 0 26px;
       border-radius: 16px;
       cursor: pointer;
 
+      &:last-child {
+        margin-bottom: 0;
+      }
+
       &:hover {
-        width: 220%;
+        width: 120%;
         background-color: var(--tabs-button-bg-hover);
         color: #222222;
       }
       &_active {
-        width: 220%;
+        width: 120%;
         background-color: var(--tabs-button-bg-hover);
         color: #222222;
       }
@@ -94,8 +97,8 @@ const btnClass = (index) => {
 
     &__content {
       width: 100%;
-      min-height: 400px;
-      padding: 20px 20px 20px 200px;
+      padding: 20px 20px 20px 45px;
+      margin-left: 20px;
       border-radius: 30px;
       background-color: white;
       box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 0.25);
