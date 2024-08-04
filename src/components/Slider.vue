@@ -37,7 +37,7 @@ const settings = {
       </div>
       <div class="carousel__item">
         <div class="carousel__icon-container">
-          <img width="80" height="80" :src="`/assets/images/icon/${slide.img}.png`" alt="icon">
+          <img width="80" height="80" :src="`./assets/images/icon/${slide.img}.png`" alt="icon">
         </div>
         <div class="carousel__content">
           <h4>{{ slide.title }}</h4>
