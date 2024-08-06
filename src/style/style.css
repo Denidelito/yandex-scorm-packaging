@@ -26,6 +26,7 @@
 
   --link-hover-primary: #F4CA3A;
   --link-text-primary: #222222;
+  --link-text-primary-disabled: rgba(34, 34, 34, 0.4);
 }
 
 body {

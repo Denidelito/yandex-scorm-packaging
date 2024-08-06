@@ -1,7 +1,11 @@
 <script setup>
 import svgIcon from "./SvgIcon.vue";
 import { ref, onMounted, computed } from 'vue';
+import { useScormStore } from "../store/scormStore.js";
 import { defineProps } from 'vue';
+import QuzeProgress from "./quze/quzeProgress.vue";
+
+const scormStore = useScormStore();
 
 const props = defineProps({
   question: {
@@ -21,10 +25,44 @@ const props = defineProps({
       correct: 'Правильный ответ',
       incorrect: 'Неправильный ответ'
     })
+  },
+  parameters: {
+    type: Object,
+    required: true,
+    default: () => ({
+      engagement: 0,
+      interest: 0,
+      understanding: 0
+    })
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  piсkoneStore: {
+    type: Object,
+    default: {
+      complete: false,
+      feedbackVisible: false,
+      selected: null,
+    }
   }
 });
 
 const buttons = ref([]);
+
+let parameters = computed(() => props.parameters)
+let animateIncrementInterest = ref(false);
+let animateIncrementEngagement = ref(false);
+let animateIncrementUnderstanding = ref(false);
+let complete = computed({
+  get: () => props.piсkoneStore.complete,
+  set: (value) =>  props.piсkoneStore.complete = value
+});
+let feedbackVisible = computed({
+  get: () => props.piсkoneStore.feedbackVisible,
+  set: (value) => props.piсkoneStore.feedbackVisible = value
+});
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -33,18 +71,53 @@ const shuffleArray = (array) => {
   }
 };
 
+let selectedAnswer = computed({
+  get: () => props.piсkoneStore.selected,
+  set: (value) => props.piсkoneStore.selected = value
+});
+
 onMounted(() => {
   buttons.value = [
     { value: 'correct', text: props.button.correct },
     { value: 'incorrect', text: props.button.incorrect }
   ];
   shuffleArray(buttons.value);
+
+  if (complete.value) {
+    selectedAnswer.value = 'correct';
+  } else if (!complete.value && feedbackVisible.value) {
+    selectedAnswer.value = 'incorrect';
+  }
 });
 
-const selectedAnswer = ref(null);
+
+const saveScormData = () => {
+  scormStore.setCustomData(props.name, {
+    complete: complete.value,
+    feedbackVisible: feedbackVisible.value,
+    selected: selectedAnswer.value,
+  });
+  scormStore.setCustomData('quzeParameters', parameters.value);
+}
 
 const handleChange = (value) => {
   selectedAnswer.value = value;
+
+  if (selectedAnswer.value === 'correct') {
+    for (let param of props.answer.parameters) {
+      parameters.value[param] += 1;
+    }
+    feedbackVisible.value = true
+    complete.value = true;
+  } else if (selectedAnswer.value === 'incorrect' && feedbackVisible.value) {
+    for (let param of props.answer.parameters) {
+      parameters.value[param] -= 1;
+    }
+
+    complete.value = false;
+  }
+
+  saveScormData();
 };
 
 const buttonClass = (value) => {
@@ -54,42 +127,66 @@ const buttonClass = (value) => {
 </script>
 
 <template>
-  <div class="pick-one__question">
-    <div class="pick-one__icon">
-      ?
+  <div class="pick-one__container">
+    <div class="pick-one__left">
+      <div class="pick-one__question">
+        <div class="pick-one__icon">
+          ?
+        </div>
+        <p>{{ question }}</p>
+      </div>
+      <form class="pick-one__buttons">
+        <div class="pick-one__checked-icon">
+          <svg-icon class="animate__animated animate__bounceIn" v-if="selectedAnswer === 'correct'" name="check" width="50" height="50"></svg-icon>
+          <svg-icon class="animate__animated animate__bounceIn" v-if="selectedAnswer === 'incorrect'" name="uncheck" width="50" height="50"></svg-icon>
+        </div>
+        <label v-for="button in buttons" :key="button.value" :class="buttonClass(button.value)">
+          <input type="radio" :value="button.value" v-model="selectedAnswer" @change="handleChange(button.value)">
+          {{ button.text }}
+        </label>
+      </form>
+      <div class="pick-one__answer animate__animated animate__slideInLeft" v-if="selectedAnswer === 'correct'">{{props.answer.correct}}</div>
+      <div class="pick-one__answer animate__animated animate__slideInLeft" v-else-if="selectedAnswer === 'incorrect'">{{props.answer.incorrect}}</div>
+      <div class="pick-one__background">
+        <div class="pick-one__background__item pick-one__background__item_big">?</div>
+        <div class="pick-one__background__item pick-one__background__item_big">?</div>
+        <div class="pick-one__background__item pick-one__background__item_big">?</div>
+        <div class="pick-one__background__item pick-one__background__item_big">?</div>
+        <div class="pick-one__background__item pick-one__background__item_medium">?</div>
+        <div class="pick-one__background__item pick-one__background__item_medium">?</div>
+        <div class="pick-one__background__item pick-one__background__item_medium">?</div>
+        <div class="pick-one__background__item pick-one__background__item_medium">?</div>
+        <div class="pick-one__background__item pick-one__background__item_smail">?</div>
+        <div class="pick-one__background__item pick-one__background__item_smail">?</div>
+        <div class="pick-one__background__item pick-one__background__item_smail">?</div>
+        <div class="pick-one__background__item pick-one__background__item_smail">?</div>
+      </div>
     </div>
-    <p>{{ question }}</p>
-  </div>
-  <form class="pick-one__buttons">
-    <div class="pick-one__checked-icon">
-      <svg-icon class="animate__animated animate__bounceIn" v-if="selectedAnswer === 'correct'" name="check" width="50" height="50"></svg-icon>
-      <svg-icon class="animate__animated animate__bounceIn" v-if="selectedAnswer === 'incorrect'" name="uncheck" width="50" height="50"></svg-icon>
-    </div>
-    <label v-for="button in buttons" :key="button.value" :class="buttonClass(button.value)">
-      <input type="radio" :value="button.value" v-model="selectedAnswer" @change="handleChange(button.value)">
-      {{ button.text }}
-    </label>
-  </form>
-  <div class="pick-one__answer animate__animated animate__slideInRight" v-if="selectedAnswer === 'correct'">{{props.answer.correct}}</div>
-  <div class="pick-one__answer animate__animated animate__slideInRight" v-else-if="selectedAnswer === 'incorrect'">{{props.answer.incorrect}}</div>
-  <div class="pick-one__background">
-    <div class="pick-one__background__item pick-one__background__item_big">?</div>
-    <div class="pick-one__background__item pick-one__background__item_big">?</div>
-    <div class="pick-one__background__item pick-one__background__item_big">?</div>
-    <div class="pick-one__background__item pick-one__background__item_big">?</div>
-    <div class="pick-one__background__item pick-one__background__item_medium">?</div>
-    <div class="pick-one__background__item pick-one__background__item_medium">?</div>
-    <div class="pick-one__background__item pick-one__background__item_medium">?</div>
-    <div class="pick-one__background__item pick-one__background__item_medium">?</div>
-    <div class="pick-one__background__item pick-one__background__item_smail">?</div>
-    <div class="pick-one__background__item pick-one__background__item_smail">?</div>
-    <div class="pick-one__background__item pick-one__background__item_smail">?</div>
-    <div class="pick-one__background__item pick-one__background__item_smail">?</div>
+    <quze-progress  :interest="parameters.interest"
+                   :engagement="parameters.engagement"
+                   :understanding="parameters.understanding"
+                   :interestVisible="animateIncrementInterest"
+                   :engagementVisible="animateIncrementEngagement"
+                   :understandingVisible="animateIncrementUnderstanding"
+    />
   </div>
 </template>
 
 <style scoped lang="scss">
   .pick-one {
+    &__container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__left {
+      width: 60%;
+    }
+
+    &__right {
+      width: 40%;
+    }
+
     &__checked-icon {
       width: 74px;
     }
@@ -104,7 +201,7 @@ const buttonClass = (value) => {
     &__question {
       overflow: hidden;
       display: flex;
-      font-size: 20px;
+      font-size: 16px;
       border-radius: 32px;
       background-color: white;
       box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
@@ -217,6 +314,7 @@ const buttonClass = (value) => {
       box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
       background-color: white;
       border-radius: 16px;
+      font-size: 14px;
       text-align: center;
       cursor: pointer;
       transition: .3s;
@@ -240,6 +338,7 @@ const buttonClass = (value) => {
       }
     }
     &__answer {
+      font-size: 16px;
       padding: 16px 24px;
       background-color: white;
       border-radius: 16px;

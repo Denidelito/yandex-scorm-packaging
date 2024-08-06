@@ -108,6 +108,12 @@ const routes = [
         name: 'slide-13',
         component: () => import('../views/page-13.vue')
     },
+    // Практическое задание со шкалами
+    {
+        path: '/trening-3',
+        name: 'trening-3',
+        component: () => import('../views/trening-3.vue')
+    },
     // Стадия функционирования
     {
         path: '/splash-5',
@@ -123,6 +129,12 @@ const routes = [
         path: '/slide-15',
         name: 'slide-15',
         component: () => import('../views/page-15.vue')
+    },
+    // Практическое задание со шкалами
+    {
+        path: '/trening-4',
+        name: 'trening-4',
+        component: () => import('../views/trening-4.vue')
     },
     // Стадия расставания
     {
@@ -140,6 +152,12 @@ const routes = [
         name: 'slide-17',
         component: () => import('../views/page-17.vue')
     },
+    // Практическое задание со шкалами
+    {
+        path: '/trening-5',
+        name: 'trening-5',
+        component: () => import('../views/trening-5.vue')
+    },
     {
         path: '/slide-18',
         name: 'slide-18',
@@ -147,9 +165,9 @@ const routes = [
     },
     // Практика на перетаскивание
     {
-        path: '/slide-33',
-        name: 'slide-33',
-        component: () => import('../views/page-33.vue')
+        path: '/sortable-1',
+        name: 'sortable-1',
+        component: () => import('../views/sortable-1.vue')
     },
     {
         path: '/slide-19',
@@ -174,29 +192,39 @@ const routes = [
     },
     // Принципы андрагогики
     {
-        path: '/slide-22',
-        name: 'slide-22',
-        component: () => import('../views/page-22.vue')
+        path: '/picone-1',
+        name: 'picone-1',
+        component: () => import('../views/pickone-1.vue')
     },
     {
         path: '/slide-23',
         name: 'slide-23',
-        component: () => import('../views/page-23.vue')
+        component: () => import('../views/pickone-2.vue')
     },
     {
         path: '/slide-24',
         name: 'slide-24',
-        component: () => import('../views/page-24.vue')
+        component: () => import('../views/pickone-3.vue')
     },
     {
         path: '/slide-25',
         name: 'slide-25',
-        component: () => import('../views/page-25.vue')
+        component: () => import('../views/pickone-4.vue')
     },
     {
         path: '/slide-26',
         name: 'slide-26',
         component: () => import('../views/page-26.vue')
+    },
+    {
+        path: '/slide-22',
+        name: 'slide-22',
+        component: () => import('../views/page-22.vue')
+    },
+    {
+        path: '/trening-6',
+        name: 'trening-6',
+        component: () => import('../views/trening-6.vue')
     },
     // Роли тренера
     {
@@ -238,7 +266,7 @@ const routes = [
     {
         path: '/slide-34',
         name: 'slide-34',
-        component: () => import('../views/page-34.vue')
+        component: () => import('../views/sortable-2.vue')
     },
     {
         path: '/slide-35',
@@ -287,6 +315,12 @@ const routes = [
         name: 'slide-41',
         component: () => import('../views/page-41.vue')
     },
+    // Практика тестирование
+    /*{
+        path: '/trening-6',
+        name: 'trening-6',
+        component: () => import('../views/trening-6.vue')
+    },*/
     // Роли тренера на перетаскивание
     {
         path: '/splash-10',

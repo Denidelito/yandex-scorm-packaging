@@ -3,7 +3,10 @@ import {ref, onMounted, defineProps, computed} from 'vue';
 import {Sortable} from 'sortablejs-vue3';
 import SvgIcon from "../SvgIcon.vue";
 import Speech from "../Speech.vue";
+import { useScormStore } from "../../store/scormStore.js";
+import QuzeProgress from "./quzeProgress.vue";
 
+const scormStore = useScormStore();
 const props = defineProps({
   task: {
     type: String,
@@ -37,14 +40,38 @@ const props = defineProps({
   size: {
     type: String,
     default: 'normal'
-  }
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  sortStore: {
+    type: Object,
+    required: true,
+    default: {
+      complete: false,
+      feedbackVisible: false,
+    }
+  },
+  parameters: {
+    type: Object,
+    required: true,
+    default: () => ({
+      engagement: 0,
+      interest: 0,
+      understanding: 0
+    })
+  },
 });
+
+let animateIncrementInterest = ref(false);
+let animateIncrementEngagement = ref(false);
+let animateIncrementUnderstanding = ref(false);
 
 // Перемешанный список ответов пользователя
 const userAnswers = ref([]);
 
 // Сообщение о результате проверки
-const resultMessage = ref('');
 
 // Опции для Sortable
 const sortableOptions = {
@@ -53,6 +80,16 @@ const sortableOptions = {
   swapThreshold: 0.65
 };
 
+let parameters = computed(() => props.parameters)
+let complete = computed({
+  get: () => props.sortStore.complete,
+  set: (value) =>  props.sortStore.complete = value
+});
+let feedbackVisible = computed({
+  get: () => props.sortStore.feedbackVisible,
+  set: (value) => props.sortStore.feedbackVisible = value
+});
+let resultMessage = computed(() => complete.value ? props.feedback.correct : props.feedback.incorrect);
 // Функция перемешивания массива
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -75,8 +112,26 @@ onMounted(() => {
   userAnswers.value = shuffleArray([...answers.value]);
 });
 
+const saveScormData = () => {
+  scormStore.setCustomData('quzeParameters', parameters.value);
+  scormStore.setCustomData(props.name, {
+    complete: complete.value,
+    feedbackVisible: feedbackVisible.value,
+  });
+}
 const restarSort = (array) => {
-  resultMessage.value = '';
+  if (complete.value) {
+    parameters.value.interest -= 1;
+    parameters.value.engagement -= 1;
+    parameters.value.understanding -= 1;
+
+    complete.value = false;
+  }
+
+  feedbackVisible.value = false;
+
+  saveScormData();
+
   userAnswers.value = shuffleArray([...array])
 }
 
@@ -97,14 +152,37 @@ const checkAnswers = (questions) => {
   const isCorrect = userAnswers.value.every((answer, index) => {
     return answer.id === questions[index].id;
   });
-  resultMessage.value = isCorrect ? props.feedback.correct : props.feedback.incorrect;
+
+  if (isCorrect) {
+    parameters.value.interest += 1;
+    parameters.value.engagement += 1;
+    parameters.value.understanding += 1;
+
+    animateIncrementEngagement.value = true;
+    animateIncrementInterest.value = true;
+    animateIncrementUnderstanding.value = true;
+
+    setTimeout(() => {
+      animateIncrementInterest.value = false;
+      animateIncrementEngagement.value = false;
+      animateIncrementUnderstanding.value = false;
+    }, 1500)
+
+    complete.value = true;
+  } else {
+    complete.value = false;
+  }
+
+  feedbackVisible.value = true;
+
+  saveScormData();
 };
 
 </script>
 
 <template>
   <div class="sortable-quze">
-    <div v-if="!resultMessage">
+    <div v-if="!feedbackVisible">
       <div class="sortable-quze__task">
         <div class="sortable-quze__task-icon">?</div>
         <div class="sortable-quze__task-text">{{task}}</div>
@@ -134,17 +212,33 @@ const checkAnswers = (questions) => {
       </div>
     </div>
     <div class="sortable-quze__nav">
-      <button class="sortable-quze__btn" v-if="resultMessage"  @click="restarSort(answers)">Попробовать еще раз</button>
-      <button class="sortable-quze__btn" v-if="!resultMessage" @click="checkAnswers(questions)">Проверить ответы</button>
+      <button class="sortable-quze__btn" v-if="feedbackVisible"  @click="restarSort(answers)">Попробовать еще раз</button>
+      <button class="sortable-quze__btn" v-if="!feedbackVisible" @click="checkAnswers(questions)">Проверить ответы</button>
     </div>
-    <div class="result mt-35" v-if="resultMessage">
-      <speech :speech-data="resultMessage"/>
+    <div class="" v-if="feedbackVisible">
+      <div class="sortable-quze__result">
+        <speech :speech-data="resultMessage"/>
+        <!--    Шкалы прогресса-->
+        <quze-progress style="margin-top: 80px" :interest="parameters.interest"
+                       :engagement="parameters.engagement"
+                       :understanding="parameters.understanding"
+                       :interestVisible="animateIncrementInterest"
+                       :engagementVisible="animateIncrementEngagement"
+                       :understandingVisible="animateIncrementUnderstanding"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .sortable-quze {
+  &__result {
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__btn {
     background-color: var(--btn-color-bg);
     transition: .3s;

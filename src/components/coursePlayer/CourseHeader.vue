@@ -15,20 +15,20 @@ const props = defineProps({
 const visibleSection = ref(''); // '' (none), 'menu', 'glossary'
 
 const menuLinks = [
-  { title: 'Этапы формирования группы', url: '/splash-1' },
-  { title: 'Формирующая стадия', url: '/splash-2' },
-  { title: 'Конфликтная стадия', url: '/splash-3' },
-  { title: 'Стадия нормализации', url: '/splash-4' },
-  { title: 'Стадия функционирования', url: '/splash-5' },
-  { title: 'Стадия расставания', url: '/splash-6' },
-  { title: 'Андрагогика', url: '/splash-7' },
-  { title: 'Роли тренера', url: '/splash-8' },
-  { title: 'Роли участников', url: '/splash-9' },
-  { title: 'Структура группы', url: '/splash-10' },
-  { title: 'Факторы сплочённости', url: '/splash-11' },
-  { title: 'Факторы напряжённости', url: '/splash-12' },
-  { title: 'Инструменты', url: '/splash-13' },
-  { title: 'Тайминг', url: '/splash-14' },
+  {type: 'title', title: 'Этапы формирования группы', url: '/splash-1'},
+  {type: 'subtitle', title: 'Формирующая стадия', url: '/splash-2' },
+  {type: 'subtitle', title: 'Конфликтная стадия', url: '/splash-3' },
+  {type: 'subtitle', title: 'Стадия нормализации', url: '/splash-4' },
+  {type: 'subtitle', title: 'Стадия функционирования', url: '/splash-5' },
+  {type: 'subtitle', title: 'Стадия расставания', url: '/splash-6' },
+  {type: 'title', title: 'Андрагогика', url: '/splash-7' },
+  {type: 'title', title: 'Роли тренера', url: '/splash-8' },
+  {type: 'title', title: 'Роли участников', url: '/splash-9' },
+  {type: 'title', title: 'Структура группы', url: '/splash-10' },
+  {type: 'title', title: 'Факторы сплочённости', url: '/splash-11' },
+  {type: 'title', title: 'Факторы напряжённости', url: '/splash-12' },
+  {type: 'title', title: 'Инструменты', url: '/splash-13' },
+  {type: 'title', title: 'Тайминг', url: '/splash-14' },
 ];
 
 const glossaryWords = [
@@ -100,7 +100,7 @@ const handleShowUpdate = (newStatus) => {
 <style lang="scss" scoped>
   .yEda-player__header {
     display: flex;
-    z-index: 11;
+    z-index: 12;
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;

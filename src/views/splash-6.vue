@@ -6,10 +6,24 @@ const scormStore = useScormStore();
 const selectedCharacter = ref('girl');
 
 onMounted(() => {
+  const nameSlide = '/splash-6';
   const savedCharacter = scormStore.getCustomData('selectedCharacter');
+  let savedNavData = scormStore.getCustomData('navDataStore');
+  let dataVisited = [...savedNavData.visited];
+
+  savedNavData.visited.push(nameSlide)
   if (savedCharacter) {
     selectedCharacter.value = savedCharacter;
   }
+
+  if (!dataVisited.find((item) => item === nameSlide)) {
+    dataVisited.push(nameSlide)
+  }
+
+  scormStore.setCustomData('navDataStore', {
+    slide: nameSlide,
+    visited: dataVisited
+  });
 });
 </script>
 

@@ -52,8 +52,11 @@ onMounted(() => {
   const saveParameters = scormStore.getCustomData('quzeParameters');
   const saveQuze = scormStore.getCustomData('quze1');
 
-  if (saveParameters && saveQuze) {
+  if (saveParameters) {
     parameters.value = saveParameters;
+  }
+
+  if (saveQuze) {
     quzeStore.value = saveQuze;
   }
 })

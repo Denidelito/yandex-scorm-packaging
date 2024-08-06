@@ -1,5 +1,8 @@
 <script setup>
 import PickOne from "../components/PickOne.vue";
+import {useScormStore} from "../store/scormStore.js";
+import {onMounted, ref} from "vue";
+const scormStore = useScormStore();
 
 const question = 'Ты закончил объяснять один материал и перешел к следующему. Но у обучающегося остались вопросы по пройденному материалу. Что делать в данной ситуации тренеру: выслушать и ответить на вопросы по пройденной теме, перед тем как перейти к обучению новой, или сначала рассказать весь материал, и только в конце тренинга ответить на вопросы по всем темам?';
 const button = {
@@ -8,15 +11,46 @@ const button = {
 };
 const answer = {
   correct: 'При обучении взрослых, для закрепления знаний и навыков, лучше всего использовать реальные ситуации из жизненного опыта учеников. Правильное подкрепление знаний помогает группе быстрее перейти из нормирующей стадии к стадии функционирования, где каждый из участников – эффиктивно работает и максимально включён в процесс.',
-  incorrect: 'Ситуационные задачи полезно использовать для развития практических навыков и аналитического мышления, но они, как правило, изолированы от реального опыта. В андрагогике мы апеллируем к жизненному опыту. Правильное подкрепление знаний помогает группе быстрее перейти из нормирующей стадии к стадии функционирования, где каждый из участников – эффективно работает и максимально включён в процесс.'
+  incorrect: 'Ситуационные задачи полезно использовать для развития практических навыков и аналитического мышления, но они, как правило, изолированы от реального опыта. В андрагогике мы апеллируем к жизненному опыту. Правильное подкрепление знаний помогает группе быстрее перейти из нормирующей стадии к стадии функционирования, где каждый из участников – эффективно работает и максимально включён в процесс.',
+  parameters: ['engagement', 'understanding']
 };
+
+const parameters = ref({
+  interest: 0,
+  engagement: 0,
+  understanding: 0
+});
+const pickOneStore = ref({
+  complete: false,
+  selected: null,
+  feedbackVisible: false
+})
+
+onMounted(() => {
+  const saveParameters = scormStore.getCustomData('quzeParameters');
+  const savePickOne = scormStore.getCustomData('picone2');
+
+  if (saveParameters) {
+    parameters.value = saveParameters;
+  }
+
+  if (savePickOne) {
+    pickOneStore.value = savePickOne;
+  }
+})
 </script>
 
 <template>
   <div>
     <h2 class="mt-35">Принцип 2</h2>
     <p class="mt-25 text-info">Выберите правилльный ответ</p>
-    <pick-one :question="question" :button="button" :answer="answer"  />
+    <pick-one
+        name="picone2"
+        :question="question"
+        :button="button"
+        :answer="answer"
+        :parameters="parameters"
+        :piсkone-store="pickOneStore"/>
   </div>
 </template>
 

@@ -1,5 +1,10 @@
 <script setup>
 import SortableQuze from "../components/quze/SortableQuze.vue";
+import { useScormStore } from "../store/scormStore.js";
+import {onMounted, ref} from "vue";
+
+const scormStore = useScormStore();
+
 const task = 'Сопоставь стадии развития группы с её описанием';
 const questions = [
   {text: 'Тренер проводит тренинг для нового отдела, состоящего из сотрудников разных отделов, недавно объединённых для совместного проекта. Участники ещё не знакомы и только начинают понимать свои взаимодействия и роли в команде.', id: 1},
@@ -14,14 +19,47 @@ const answers = [
   {text: 'Стадия функционирования', id: 4}
 ];
 const feedback = {
-  correct: ['Ты отлично справился и правильно соотнёс все стадии развития!'],
-  incorrect: ['Ты ошибся, попробуй ещё раз!']
+  correct: ['Формирующая: Важно сформировать доверие. Как внутри группы, так и от группы к тренеру и наоборот.', 'Конфликтная: Растет вовлеченность в работу, и если доверие сформировалось, то участники не боятся высказать недовольство и происходят конфликты.', 'Номирующая: Высокая вовлеченность и хорошая эффективность.', 'Функционирования: Самая высокая эффективность, команда не просто научилась вместе работать, на этом этапе команда способна самообучаться.'],
+  incorrect: ['Допущена ошибка, твой выбор не помог улучшить динамику группы. Попробуй ещё раз!']
 }
+
+
+const parameters = ref({
+  engagement: 0,
+  interest: 0,
+  understanding: 0
+})
+const sortableStore = ref({
+  complete: false,
+  feedbackVisible: false,
+})
+
+
+onMounted(() => {
+  const saveParameters = scormStore.getCustomData('quzeParameters');
+  const saveSortable = scormStore.getCustomData('sortable1');
+
+  if (saveParameters) {
+    parameters.value = saveParameters;
+  }
+
+  if (saveSortable) {
+    sortableStore.value = saveSortable;
+  }
+})
 </script>
 
 <template>
   <div>
-    <sortable-quze :answers="answers" :questions="questions" :task="task" :feedback="feedback"/>
+    <sortable-quze
+        name="sortable1"
+        :answers="answers"
+        :questions="questions"
+        :task="task"
+        :feedback="feedback"
+        :sortStore="sortableStore"
+        :parameters="parameters"
+    />
   </div>
 </template>
 

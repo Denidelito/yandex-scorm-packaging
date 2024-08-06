@@ -34,7 +34,6 @@ onMounted(() => {
   </div>
 </template>
 
-
 <style scoped lang="scss">
 .background-img {
   position: absolute;
